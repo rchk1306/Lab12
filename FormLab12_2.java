@@ -1,11 +1,14 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
-public class FormLab12_2 extends JFrame {
+public class FormLab12_2 extends JFrame implements MouseListener {
 
     Container cp ;
     JButton allBT[] ;
     JLabel L ;
+    int count = 0;
     
     public FormLab12_2(){
         Initial();
@@ -26,6 +29,8 @@ public class FormLab12_2 extends JFrame {
             allBT[i] = new JButton();
             allBT[i].setBackground(Color.white);
             allBT[i].setPreferredSize(new Dimension(20, 20));
+
+            allBT[i].addMouseListener(this);
             p.add(allBT[i]);
         }
 
@@ -36,6 +41,7 @@ public class FormLab12_2 extends JFrame {
         
         cp.add(L,BorderLayout.NORTH);
         cp.add(p,BorderLayout.CENTER);
+
     }
     public void Finally(){
         this.pack();
@@ -43,5 +49,30 @@ public class FormLab12_2 extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-   
+
+
+    Color tmp ;
+        public void mouseClicked(MouseEvent e) { 
+            if (tmp == Color.WHITE) {
+                e.getComponent().setBackground(Color.RED);
+                tmp = Color.RED;
+                L.setText((++count)+"");
+            } else if(tmp == Color.RED) {
+                e.getComponent().setBackground(Color.WHITE);
+                tmp = Color.WHITE;
+                L.setText((--count)+"");
+            }
+        }
+        public void mousePressed(MouseEvent e) { 
+        }
+        public void mouseReleased(MouseEvent e) {
+        }
+        public void mouseEntered(MouseEvent e) {
+            tmp = e.getComponent().getBackground();
+            e.getComponent().setBackground(Color.BLACK);
+        }
+        public void mouseExited(MouseEvent e) {
+            e.getComponent().setBackground(tmp);
+        }
+
 }
